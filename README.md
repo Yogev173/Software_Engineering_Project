@@ -18,7 +18,7 @@ the servers is using the classic KNN implementation, with calculating the distan
 our class hierarchy is:
 
 the new server - client code is implamented with the following classes:
-![](../UMLs/UML%20ass2.png)
+![](UMLs/UML%20ass2.png)
 
 the classify code remains the same: <br />
-![](../UMLs/UML%20ass1.png)
+![](UMLs/UML%20ass1.png)
