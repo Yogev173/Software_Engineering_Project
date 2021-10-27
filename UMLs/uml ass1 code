@@ -1,0 +1,86 @@
+@startuml
+class Select_k
+
+abstract Classifier
+interface Metric
+class Knn
+class Select_k<T>
+class Iris
+interface Comparable
+class CSVWriter
+class CSVObjectReader
+
+CSVWriter <|.. CSVObjectReader 
+CSVObjectReader <|.. CSVWriter
+Classifier <|-- Knn
+Metric <|-- Iris
+Knn ..> Select_k : use 
+
+abstract class Classifier<T> {
+  -vector<T*> m_data
+-vector<string> m_types
+..getters for subclasses..
+#getVector()
+#getTypes()
+..
+{abstract}+typeOfElement()
+}
+
+class Knn {
+-int m_knn
+--
+-typeOfElement()
+..
++knn()
+}
+
+class Select_k<T>{
+{static} +double select_K(vector<Comparable<T>*>& data, int k)
+__
+{static} - selectOnSmallData(vector<Comparable<T>*>& data,int k)
+{static} -initialize5Elements(std::vector<Comparable<T>*>& data, std::vector<Comparable<T>*>& dataOf5Elements, int current5Index)
+{static} -Comparable<T>* findMiddleBetween5(std::vector<Comparable<T>*>& data)
+{static} -arrangementBy(std::vector<Comparable<T>*>& data, double key)
+{static} -initializeVector(std::vector<Comparable<T>*>& data, std::vector<Comparable<T>*>& newVector, int startIndex, int endIndex)
+{static} -int find(std::vector<Comparable<T>*>& data, double key)
+}
+
+class Iris {
+-string type
+-vector<double> coordiantes
+__
++double Distance(Iris)
++String getMyType()
++vector<double> getCoordinates()
+..class methodts..
+{static} +Iris Create(string s)
+{static} +vector<string> getTypes()
+
+}
+
+class Comparable<T> {
+-double m_key
+-T* m_object
++double getKey()
++T* getValue()
++double distance(Comparable<T> o)
+}
+
+interface Metric<T> {
++double distance(Metric<T> o)
+}
+
+class CSVWriter{
+-ofstream m_fout
++write(string line)
++nextLine()
++close()
+}
+
+class CSVObjectReader{
+-string m_path
++setPath(string path)
++initializeVector(vector<T*>& data)
++deleteVectorvalues(vector<T*>& data)
+}
+@enduml

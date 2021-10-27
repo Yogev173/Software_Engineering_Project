@@ -1,0 +1,117 @@
+@startuml
+package server{
+class classifierServer
+interface serverSocketInterface
+  package client{
+  class TcpClient
+  class UdpClient
+  class ClassifierClientUi
+  }
+
+  package tcpServer{
+  class TCPServer 
+  class TCPSocket
+  }
+
+  package udpServer{
+  class UDPSocket
+  }
+}
+
+serverSocketInterface <|.. TCPSocket
+serverSocketInterface <|.. UDPSocket
+serverSocketInterface <|.. UdpClient
+serverSocketInterface <|.. TcpClient
+
+
+interface serverSocketInterface {
+--consts--
+{static} +BUFFER_SIZE = 4096
+{static} THIS_COMPUTER_IP = 127.0.0.1
+--
++send(char* buffer, int bytes)
++send(std::string massage)
++receive(char* buffer, int expectedDatdLength)
+}
+
+class classifierServer{
+-ServerSocketInterface* m_serverSocket
+-string& m_classifiedPath;
+..
++ClassifierServer(ServerSocketInterface* serverSocket, std::string& classifiedPath)
++void classifie()
+}
+
+class TCPSocket{
+-m_sock
+..
++TCPSocket(int sock)
++send(char* buffer, int bytes)
++int receive(char* buffer, int expectedDatdLength)
++closeSocket()
+}
+
+class TCPServer{
+..consts..
+{static} +int BACK_LOG = 5
+{static} +int DEFAULT_PORT = 50002
+..
+-m_listeningSock
+..
++TCPServer(const int port)
++listen()
++accept()
++closeServer()
+}
+
+class UdpClient{
+..fields..
+-int m_len
+-int m_sock
+-struct sockaddr_in m_from
+..
++UdpClient(const char* ip_address, int port)
++send(char* buffer, int bytes)
++int receive(char* buffer, int expectedDatdLength)
++void closeSocket()
++setFromAdress(const char* ip_address, int port)
+}
+
+class ClassifierClientUi{
+..fields..
+-ServerSocketInterface *m_clientSocket
+-string m_connectionType
+-string m_unclassifiedPath
+-string m_outputPath
+..
+-getDataFromUser()
+-sendData()
+-writeOutput()
++ClassifierClientUI(const char* ip_address)
++~ClassifierClientUI()
++classifieFile()
+}
+
+class TcpClient{
+-m_sock
+..
++TcpClient(const char* ip_address, int port)
++send(char* buffer, int bytes)
++int receive(char* buffer, int expectedDatdLength)
++closeSocket()
+}
+
+class UDPSocket{
+-m_sock
+-struct sockaddr_in m_from
+-m_isClientSend
+..const..
+{static} const int DEFAULT_PORT = 50001
+..
++UDPSocket(int port)
++send(char* buffer, int bytes)
++int receive(char* buffer, int expectedDatdLength)
++closeSocket()
++setFromAdress(const char* ip_address, int port)
+}
+@enduml
