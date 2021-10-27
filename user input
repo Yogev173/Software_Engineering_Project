@@ -1,0 +1,19 @@
+add_executable(client src/server/client/main.cpp src/server/client/UdpClient.cpp src/server/client/ClassifierClientUI.cpp src/server/client/TcpClient.cpp src/classifier/CSVWriter src/server/tcpServer/TCPServer src/server/ServerSocketInterface.cpp)
+add_executable(tcpServer src/server/tcpServer/main.cpp src/server/tcpServer/TCPServer src/server/tcpServer/TCPSocket src/server/ClassifierServer.cpp src/server/ServerSocketInterface.cpp src/classifier/Metric.cpp src/classifier/Iris.cpp src/classifier/Comparable.cpp src/classifier/Classifier.cpp src/classifier/Knn.cpp src/classifier/Select_k.cpp src/classifier/KnnStringClassifier.cpp src/classifier/CSVObjectReader.cpp)
+
+cd ~/Advanced_Programming1/advanced-programminig-1/ex3/build
+
+#david test
+data/Iris_train.csv
+
+data/Iris_test.csv
+
+data/Iris_result.csv
+
+
+#pingun test
+data/ptest/p_train.csv
+
+data/ptest/p_test.csv
+
+data/ptest/p_result.csv
